@@ -74,6 +74,7 @@ const InputForm = () => {
         })
           .then(wishData => {
             const wishId = wishData._id;
+            localStorage.setItem('wishData', JSON.stringify(wishData));
             router.push(`/success/${wishId}`);
           })
           .catch(error => {
