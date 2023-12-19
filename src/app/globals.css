@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -9,63 +9,63 @@
 
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
- 
+
     --primary: 24 9.8% 10%;
     --primary-foreground: 60 9.1% 97.8%;
- 
+
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
- 
+
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 25 5.3% 44.7%;
- 
+
     --accent: 60 4.8% 95.9%;
     --accent-foreground: 24 9.8% 10%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
 
     --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
     --ring: 20 14.3% 4.1%;
- 
+
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
- 
+
     --card: 20 14.3% 4.1%;
     --card-foreground: 60 9.1% 97.8%;
- 
+
     --popover: 20 14.3% 4.1%;
     --popover-foreground: 60 9.1% 97.8%;
- 
+
     --primary: 60 9.1% 97.8%;
     --primary-foreground: 24 9.8% 10%;
- 
+
     --secondary: 12 6.5% 15.1%;
     --secondary-foreground: 60 9.1% 97.8%;
- 
+
     --muted: 12 6.5% 15.1%;
     --muted-foreground: 24 5.4% 63.9%;
- 
+
     --accent: 12 6.5% 15.1%;
     --accent-foreground: 60 9.1% 97.8%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 60 9.1% 97.8%;
- 
+
     --border: 12 6.5% 15.1%;
     --input: 12 6.5% 15.1%;
     --ring: 24 5.7% 82.9%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -93,11 +93,11 @@
 }
 
 .balloon:before {
-  content: "";
+  content: '';
   height: 75px;
   width: 1px;
   padding: 1px;
-  background-color: #FDFD96;
+  background-color: #fdfd96;
   display: block;
   position: absolute;
   top: 125px;
@@ -107,20 +107,255 @@
 }
 
 .balloon:after {
-    content: "▲";
-    text-align: center;
-    display: block;
-    position: absolute;
-    color: inherit;
-    top: 120px;
-    left: 0;
-    right: 0;
-    margin: auto;
+  content: '▲';
+  text-align: center;
+  display: block;
+  position: absolute;
+  color: inherit;
+  top: 120px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 @keyframes float {
-  from {transform: translateY(100vh);
-  opacity: 1;}
-  to {transform: translateY(-300vh);
-  opacity: 0;}
+  from {
+    transform: translateY(100vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-300vh);
+    opacity: 0;
+  }
+}
+
+#birthday-cake {
+  position: relative;
+  top: 50px;
+  left: 0;
+}
+
+#birthday-cake:before {
+  content: '';
+  position: absolute;
+  background-color: #ede0d4;
+  width: 400px;
+  height: 140px;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -10%);
+  box-shadow: inset -2px -5px #e6ccb2;
+}
+
+.cake {
+  position: absolute;
+  background-color: #ddb892;
+  width: 350px;
+  height: 130px;
+  transform: translate(-50%, -60%);
+}
+
+.cake:before,
+.cake:after {
+  content: '';
+  position: absolute;
+}
+
+.cake:before,
+.middle,
+.middle:before {
+  border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%;
+  width: 350px;
+  height: 50px;
+}
+
+.cake:before {
+  background-color: #ddb892;
+  top: 130px;
+}
+
+.cake:after {
+  background-color: #b08968;
+  width: 350px;
+  height: 30px;
+  top: 50px;
+}
+
+.middle {
+  position: absolute;
+  background-color: #b08968;
+  top: 80px;
+  z-index: 1;
+}
+
+.middle:before {
+  content: '';
+  position: absolute;
+  background-color: #ddb892;
+  top: -35px;
+}
+
+.top {
+  position: absolute;
+  background-color: #7f5539;
+  width: 350px;
+  height: 90px;
+  border-radius: 50%;
+  z-index: 2;
+  top: -45px;
+  box-shadow: inset -5px -1px #fff, inset -70px 2px rgba(255, 255, 255, 0.1);
+}
+
+.chocs {
+  position: absolute;
+  width: 55px;
+  height: 50px;
+  background-color: #7f5539;
+  top: 0;
+  z-index: 1;
+  border-radius: 50% 50% 50% 50% / 0% 0% 100% 100%;
+  box-shadow: 49px 20px #7f5539, 98px 25px #7f5539, 147px 30px #7f5539,
+    196px 25px #7f5539, 245px 20px #7f5539, 295px 0 #7f5539, 0px 4px #fff,
+    49px 24px #fff, 98px 29px #fff, 147px 34px #fff, 196px 29px #fff,
+    245px 24px #fff, 295px 4px #fff;
+}
+
+.chocs:before {
+  content: '';
+  position: absolute;
+  width: 175px;
+  height: 180px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 100% 0% 100% 0% / 0% 72% 28% 100%;
+  left: 175px;
+  top: 0;
+}
+
+.candles {
+  position: absolute;
+  width: 30px;
+  height: 80px;
+  background-color: #0081a7;
+  top: -160px;
+  left: -20px;
+  box-shadow: 50px 20px #0081a7, -50px 20px #0081a7;
+}
+
+.candles:before {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 10px;
+  background-color: #0081a7;
+  border-radius: 50%;
+  top: -5px;
+  box-shadow: 0 80px #0081a7, -50px 20px #0081a7, -50px 100px #0081a7,
+    50px 20px #0081a7, 50px 100px #0081a7, inset 2px -1px #fff;
+}
+
+.candles:after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 10px;
+  border-radius: 50%;
+  top: 15px;
+  left: 50px;
+  box-shadow: inset 2px -1px #fff;
+}
+
+.shadows {
+  position: absolute;
+  width: 30px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: inset 2px -1px #fff;
+  left: -50px;
+  top: 15px;
+}
+
+.shadows:before {
+  content: '';
+  position: absolute;
+  background-color: #333;
+  width: 1.5px;
+  height: 15px;
+  left: 14.5px;
+  top: -10px;
+  box-shadow: 50px -20px #333, 100px 0 #333;
+}
+
+.shadows:after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 90px;
+  left: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 50px -20px rgba(255, 255, 255, 0.1),
+    100px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 0% 100% 50% 50% / 100% 6% 10% 0%;
+}
+
+.flame,
+.flame:before,
+.flame2,
+.flame2:before,
+.flame3,
+.flame3:before {
+  position: absolute;
+  border-radius: 80% 15% 55% 50% / 55% 15% 80% 50%;
+}
+
+.flame,
+.flame3,
+.flame2 {
+  width: 30px;
+  height: 30px;
+  transform: rotate(-45deg);
+  z-index: 4;
+  background-color: rgba(252, 191, 73, 0.8);
+  transition: 0.5s;
+  animation: flame 0.5s infinite;
+}
+
+.flame {
+  top: -40px;
+}
+
+.flame2,
+.flame3 {
+  top: -20px;
+}
+
+.flame2 {
+  left: -50px;
+}
+
+.flame3 {
+  left: 50px;
+}
+
+.flame:before,
+.flame2:before,
+.flame3:before {
+  content: '';
+  background-color: rgba(247, 127, 0, 0.4);
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  left: 5px;
+}
+
+@keyframes flame {
+  0%,
+  25%,
+  100% {
+    transform: scaleY(1) rotate(-45deg);
+  }
+  50%,
+  75% {
+    transform: scaleY(1.1) rotate(-45deg);
+  }
 }

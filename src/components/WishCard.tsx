@@ -1,11 +1,8 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-
-import { Button } from "@/components/ui/button"
-import { Files, ExternalLink } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
 import { CardTitle, CardDescription, CardHeader, CardContent, Card, CardFooter } from "@/components/ui/card"
+import Cake from '@/components/Cake'
 import { usePathname } from 'next/navigation';
-import toast from 'react-hot-toast'
 
 type data = {
   senderName: string,
@@ -13,7 +10,7 @@ type data = {
   wish: string,
 }
 
-const CopyLink = () => {
+const WishCard = () => {
   const url = process.env.NEXT_PUBLIC_URL;
   const pathname = usePathname();
   const id = pathname.split('/')[2]
@@ -41,15 +38,6 @@ const CopyLink = () => {
     fetchData();
   }, [id]);
 
-  const handleExternal = () => {
-    window.open(`${url}/wish/${id}`, '_blank')
-  }
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(`${url}/wish/${id}`)
-    toast.success('Link copied to clipboard')
-  }
-
   return (
     isloading ? (
       <div role="status">
@@ -60,51 +48,39 @@ const CopyLink = () => {
         <span className="sr-only">Loading...</span>
       </div>
     ) : (
-      data?.senderName === undefined ? (
-        <div className="flex flex-col items-center justify-center">
-          <p className="text-2xl">Oops! This link is invalid.</p>
-          <p className="text-lg text-muted-foreground">Please check the link and try again.</p>
-        </div>
-      ) : (
-        <Card className="w-lg md:w-[700px] my-10 shadow-lg">
+      data?.senderName == undefined ? (
+        <div className='flex flex-col items-center justify-center h-screen'>
+          <div className='flex flex-col items-center justify-center'>
+            <div className='flex flex-col gap-2 text-center'>
+              <CardTitle className='text-3xl md:text-5xl animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent'>
+                Oops!</CardTitle >
+              <CardDescription className='text-lg mx-auto '>
+                Looks like this link is broken. Please check the link and try again.
+              </CardDescription>
+            </div >
+          </div >
+        </div >
+      ) :
+        < Card className="w-lg md:w-[800px] my-10 shadow-lg" >
           <CardHeader className="flex flex-row items-center justify-center">
             <div className='flex flex-col items-center mt-5 '>
-              <div className='flex items-center justify-center relative'>
-                <span className='absolute w-20 h-20 bg-green-300/20 rounded-full animate-pulse'></span >
-                <div className='rounded-full bg-green-600 w-14 h-14 items-center flex'>
-                  <svg className='text-white w-6 h-6 mx-auto' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M5 13l4 4L19 7' />
-                  </svg>
-                </div>
-              </div >
-              <div className="flex flex-col gap-2 text-center mt-5">
-                <CardTitle className='text-3xl'>
-                  All set, {data.senderName} </CardTitle>
-                <CardDescription className='md:w-2/3 mx-auto'>
-                  Here is the unique birthday wish link you've generated. Click the button to copy it.
+              <div className="flex flex-col gap-2 text-center">
+                <CardTitle className='text-3xl md:text-5xl animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent'>
+                  Happy Birthday {data.recipientName}!</CardTitle >
+                <CardDescription className='text-lg mx-auto '>
+                  Blow out the candles by blowing into your mic!
                 </CardDescription>
-              </div>
+              </div >
             </div >
           </CardHeader >
-          <CardContent className="flex items-center justify-center">
-            <div className="w-[90%] p-2 bg-accent rounded-md">
-              <p className="text-center whitespace-nowrap text-ellipsis overflow-hidden ...">{url}/wish/{id}</p>
-            </div>
+          <CardContent className="flex items-center justify-center h-[350px]">
+            <Cake wishData={data} />
           </CardContent>
           <CardFooter className='mb-5 flex gap-2 mx-auto justify-center'>
-            <Button onClick={handleCopy} className='flex item-center gap-2' variant="outline">
-              <Files size={15} />
-              Copy Link
-            </Button>
-            <Button onClick={handleExternal} className='flex item-center gap-2 font-semibold animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 ' >
-              Take a look
-              <ExternalLink size={15} />
-            </Button>
           </CardFooter>
         </Card >
-      )
     )
   )
 }
 
-export default CopyLink
+export default WishCard
