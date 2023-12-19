@@ -1,11 +1,9 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
 import { Caveat } from 'next/font/google'
+import { Button } from './ui/button';
 
 const caveat = Caveat({ subsets: ['latin'] })
-
-
-
 
 const BirthdayCake = ({ wishData }: any) => {
   const flameRef = useRef<HTMLDivElement>(null);
@@ -14,6 +12,8 @@ const BirthdayCake = ({ wishData }: any) => {
   const textRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [candlesBlownOut, setCandlesBlownOut] = useState(false);
+  const [viewWish, setViewWish] = useState(false);
+  const [stream, setStream] = useState<MediaStream | null>(null);
 
   useEffect(() => {
     const handleClick = () => {
@@ -25,8 +25,8 @@ const BirthdayCake = ({ wishData }: any) => {
         textRef.current.style.opacity = '1';
         setTimeout(() => {
           setCandlesBlownOut(true);
-          if (audioRef.current) {
-            audioRef.current.play();
+          if (stream) {
+            stream.getTracks().forEach(track => track.stop());
           }
         }, 2000);
       }
@@ -35,6 +35,7 @@ const BirthdayCake = ({ wishData }: any) => {
     // Blow out candles when user blows into mic
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       .then(stream => {
+        setStream(stream);
         const audioContext = new AudioContext();
         const analyser = audioContext.createAnalyser();
         const microphone = audioContext.createMediaStreamSource(stream);
@@ -67,17 +68,36 @@ const BirthdayCake = ({ wishData }: any) => {
 
   }, []);
 
+  const playAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+  };
+
+  const handleViewClick = () => {
+    setViewWish(true);
+    playAudio();
+  };
+
   return (
-    <div className={caveat.className}>
+    <div >
       {candlesBlownOut ? (
-        <div className="transition-opacity duration-2000">
-          <div className='px-5 md:px-12'>
-            <p className='text-center text-2xl md:text-4xl'>
-              {wishData.wish}
-            </p>
-            <p className='mt-10 flex justify-center md:justify-end text-xl md:text-3xl text-muted-foreground'>From: {wishData.senderName}</p>
+        viewWish ? (
+          <div className="transition-opacity duration-2000">
+            <div className='px-5 md:px-12'>
+              <p className={`${caveat.className} text-center text-2xl md:text-4xl`}>
+                {wishData.wish}
+              </p>
+              <p className={`${caveat.className} mt-10 flex justify-center md:justify-end text-xl md:text-3xl text-muted-foreground`}>From: {wishData.senderName}</p>
+            </div>
           </div>
-        </div>  // Add transition
+        ) : (
+          <div className='mx-auto items-center text-center justify-center flex flex-col gap-2'>
+            <p className='text-3xl font-semibold tracking-tight text-pink'>One more thing,</p>
+            <p className='text-lg text-muted-foreground tracking-tight text-pink'>Click the button below to view your wish!</p>
+            <Button variant='secondary' className='px-5 mt-5' onClick={handleViewClick}>View wish</Button>
+          </div>
+        )
       ) : (
         <div className=''>
           <div id="birthday-cake">
@@ -97,7 +117,7 @@ const BirthdayCake = ({ wishData }: any) => {
         </div>
       )}
       <audio ref={audioRef} src="/sounds/birthday.mp3" />
-    </div>
+    </div >
   );
 };
 
